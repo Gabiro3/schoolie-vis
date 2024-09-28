@@ -48,7 +48,7 @@ export const sendFriendRequest = (
       console.log("check send friend request", rs);
       if (rs?.message === "Send friend request, successfully")
         toast.success("Send friend request successfully");
-      else toast.error("Send friend request failed");
+      else toast.error("Send friend request failed!");
     }
   );
 };
