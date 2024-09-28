@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { saveAs } from "file-saver";
 
 import { MdEmojiEmotions } from "react-icons/md";

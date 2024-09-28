@@ -36,7 +36,7 @@ export default function Home() {
                               hover:bg-secondary-gray hover:shadow-2xl"
               >
                 <p className="font-medium text-[18px]">
-                  Open Discord in your browser
+                  Open Schoolie in your browser
                 </p>
               </div>
             </Link>
@@ -70,8 +70,8 @@ export default function Home() {
             Create an invite-only place where you belong
           </h1>
           <p className="text-black dark:text-black text-justify md:text-left">
-            Discord servers are organized into topic-based channels where you
-            can collaborate, share, and just talk about your day without
+            Schoolie  Study rooms are organized into topic-based channels where you
+            can collaborate, share, and just talk about class work without
             clogging up a group chat.
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function Home() {
           </h1>
           <p className="text-black dark:text-black text-justify md:text-left">
             Grab a seat in a voice channel when you’re free. Friends in your
-            server can see you’re around and instantly pop in to talk without
+            study room can see you’re around and instantly pop in to talk without
             having to call.
           </p>
         </div>
@@ -117,12 +117,12 @@ export default function Home() {
       <div className="bg-hidden-gray flex flex-col items-center py-[100px] px-4 md:px-0">
         <div className="flex flex-col items-center gap-5">
           <h1 className="text-black dark:text-black text-[40px] text-center font-black">
-            RELIABLE TECH FOR STAYING CLOSE
+            RELIABLE TECH FOR BETTER LEARNING
           </h1>
           <p className="text-black dark:text-black md:text-xl text-center md:max-w-[1000px]">
             Low-latency voice and video feels like you’re in the same room. Wave
-            hello over video, watch friends stream their games, or gather up and
-            have a drawing session with screen share.
+            hello over video, collaborate on homework, or gather up and
+            have a learning session with screen share.
           </p>
         </div>
         <Image
@@ -134,7 +134,7 @@ export default function Home() {
         />
         <div className="relative flex flex-col items-center gap-8">
           <h1 className="absolute text-xl md:text-[35px] font-black">
-            Ready to start your journey?
+            Ready to start learning?
           </h1>
           <Image
             className="w-[1000px] h-auto"
@@ -149,7 +149,7 @@ export default function Home() {
                               hover:bg-secondary-purple hover:shadow-2xl"
             >
               <Download />
-              <p className="font-medium text-[18px]">Download for Windows</p>
+              <p className="font-medium text-[18px]">Create an account</p>
             </div>
           </Link>
         </div>

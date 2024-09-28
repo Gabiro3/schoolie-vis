@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFriendStore, useSocketStore } from "@/lib/store";
 import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import { UserType } from "@/types";
 

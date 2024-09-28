@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import copy from "copy-to-clipboard";
 
 import { Button } from "@/components/ui/button";

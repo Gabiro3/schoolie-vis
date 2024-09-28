@@ -10,7 +10,7 @@ const LoginPage = () => {
     <div className="bg-cover min-h-screen bg-[url('/images/login.png')] flex flex-col items-center justify-center">
       <div className="text-white bg-secondary-gray px-8 py-6 rounded-md flex flex-wrap justify-center gap-10 md:gap-[80px] m-5">
         <LoginEmailForm />
-        <div className="p-4 flex flex-col items-center gap-5">
+        {/* <div className="p-4 flex flex-col items-center gap-5">
           <Image
             className="rounded-md"
             style={{ width: "80%", height: "auto" }}
@@ -39,7 +39,7 @@ const LoginPage = () => {
               </button>
             </form>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

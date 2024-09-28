@@ -30,7 +30,7 @@ const HomePageNavbar = () => {
           className="bg-white text-[13px] text-black font-bold px-4 py-2 rounded-3xl
                         hover:text-primary-purple hover:shadow-2xl"
         >
-          Open Discord
+          Open Schoolie
         </div>
       </Link>
     </div>

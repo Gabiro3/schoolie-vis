@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useServerStore, useSocketStore } from "@/lib/store";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import {

@@ -17,7 +17,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 type ParentComponentProps = {
   children: ReactNode;

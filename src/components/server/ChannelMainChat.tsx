@@ -12,7 +12,7 @@ import { useSession } from "next-auth/react";
 import { useServerStore, useSocketStore } from "@/lib/store";
 import { v4 as uuidv4 } from "uuid";
 import { saveAs } from "file-saver";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import {
   ChannelMessageChatType,

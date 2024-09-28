@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import { handleRegister } from "@/lib/action";
 
@@ -23,7 +23,7 @@ const RegisterForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (state?.message === "Register account successfully") {
+    if (state?.message === "Account registered successfully!") {
       toast.success(state.message);
       router.push("/login");
     }

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { sendFriendRequest } from "@/lib/socket";
 import { useSocketStore } from "@/lib/store";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 const Add = () => {
   const { data: session }: any = useSession();
@@ -31,7 +31,7 @@ const Add = () => {
     };
 
     if (friendEmail === session?.user?.email) {
-      toast.error("You can not add friend with yourself");
+      toast.error("You can not be your only friend!");
       setFormData({
         friendEmail: "",
       });
@@ -39,7 +39,7 @@ const Add = () => {
     }
 
     if (socket) sendFriendRequest(socket, data, toast);
-    else toast.error("Send friend request failed");
+    else toast.error("Friend request not sent, Try again!");
 
     setFormData({
       friendEmail: "",
@@ -51,7 +51,7 @@ const Add = () => {
       <div className="flex flex-col gap-3">
         <p className="text-[15px] font-bold">ADD FRIEND</p>
         <p className="text-[13px] text-black dark:text-gray-400">
-          You can add friends with their Discord email.
+          You can add friends with their Schoolie email.
         </p>
       </div>
       <form

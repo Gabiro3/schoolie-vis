@@ -27,7 +27,7 @@ import { useRef, useState } from "react";
 
 import { IoAdd } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 interface PropType {
   session: Session | null;
@@ -93,7 +93,7 @@ const CreateServerDialog = (props: PropType) => {
       const { message } = res2;
 
       if (message === "Create server successfully") {
-        toast.success("Create sever successfully");
+        toast.success("Study room created successfully!");
       }
 
       setLoading(false);
