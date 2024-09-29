@@ -65,7 +65,7 @@ const CreateServerDialog = (props: PropType) => {
     const type = image?.type?.split("/")[0];
 
     if (imageName !== "" && type !== "image")
-      toast.error("Please upload image file");
+      toast.error("Please upload image file!");
     else if (serverName === "") toast.error("Please type server name");
     else if (serverName !== "") {
       if (imageName !== "") {
