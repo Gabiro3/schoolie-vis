@@ -1,7 +1,7 @@
 import { useServerStore, useSocketStore } from "@/lib/store";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import {
   ContextMenu,

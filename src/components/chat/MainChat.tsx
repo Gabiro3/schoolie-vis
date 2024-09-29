@@ -31,7 +31,7 @@ import FileChat from "./FileChat";
 
 import { PiPhoneCallFill } from "react-icons/pi";
 import { FaCircleUser } from "react-icons/fa6";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import { getAllChatsByUserId, getUserById } from "@/lib/action.api";
 import { formatDateStr, getSummaryName } from "@/lib/helper";
@@ -286,7 +286,7 @@ const MainChat = () => {
 
   useEffect(() => {
     if (noti) {
-      toast.warn(message);
+      toast.error(message);
       setMessage("");
       setNoti(false);
     }
