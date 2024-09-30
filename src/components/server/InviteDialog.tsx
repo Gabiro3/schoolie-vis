@@ -148,7 +148,7 @@ const InviteDialog = (props: PropType) => {
                 onClick={() => {
                   if (serverInviteLink) {
                     copy(serverInviteLink);
-                    toast.success("Invite link copied successfully!");
+                    toast.success("Invite link copied successfully");
                   }
                 }}
               >
