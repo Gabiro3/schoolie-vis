@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import ServerSettingsDialog from "../ServerSettingDialog";
 
 import { TbDiamondFilled } from "react-icons/tb";
 import { IoMdArrowDropdown, IoMdSettings } from "react-icons/io";
@@ -21,8 +22,19 @@ import {
 } from "react-icons/md";
 import { FaDiscord } from "react-icons/fa";
 import { FaPen } from "react-icons/fa6";
+import ServerSettingDialog from "../ServerSettingDialog";
 
-const ServerDropdownMenu = () => {
+interface ServerDropdownMenuProps {
+  serverName: string | undefined;
+  serverId: string | number | null | undefined;
+  userId: string | undefined;
+}
+
+const ServerDropdownMenu = ({
+  serverName,
+  serverId,
+  userId,
+}: ServerDropdownMenuProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const dropdownRef = useRef<any>();
@@ -74,10 +86,17 @@ const ServerDropdownMenu = () => {
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <span>Server Settings</span>
-            <DropdownMenuShortcut>
-              <IoMdSettings size={20} />
-            </DropdownMenuShortcut>
+            <ServerSettingsDialog
+              serverId={serverId}
+              serverName={serverName}
+              members={10}
+              userId={userId}
+            >
+              <span>Server Settings</span>
+              <DropdownMenuShortcut>
+                <IoMdSettings size={20} />
+              </DropdownMenuShortcut>
+            </ServerSettingsDialog>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <span>Create Channel</span>

@@ -80,7 +80,7 @@ const FriendOnline = () => {
       <p className="font-bold">Active Now</p>
       <div className="flex flex-col mt-8">
         <p className="text-[13px] font-bold dark:text-gray-400">
-          ONLINE-{onlines?.length ? onlines?.length : "0"}
+          ONLINE ({onlines?.length ? onlines?.length : "0"})
         </p>
         <div className="mt-5 flex flex-col gap-5">
           {onlines?.length === 0 && (
@@ -89,8 +89,8 @@ const FriendOnline = () => {
                 It is quiet for now...
               </p>
               <p className="text-center text-[12px] dark:text-gray-400">
-                When a friend starts an activity-like playing a game or hanging
-                out on voice-we will show it here!
+                When a friend starts an activity like a class stream of video chat, we will
+                show it here.
               </p>
             </div>
           )}

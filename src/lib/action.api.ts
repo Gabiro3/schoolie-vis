@@ -93,6 +93,50 @@ export const getJoinServerByUserId = async (userId: string) => {
     return err?.response?.data;
   }
 };
+export const deleteServer = async (serverId: string | number | null | undefined) => {
+  if (typeof serverId !== 'string') {
+    throw new Error('Invalid serverId: Must be a non-empty string');
+  }
+
+  try {
+    const response = await axios.delete(`/server/delete/${serverId}`);
+    return response.data; // Handle successful deletion
+  } catch (error) {
+    console.error('Error deleting the server:', error);
+    throw new Error('Failed to delete the server');
+  }
+};
+
+export const leaveServer = async (userId: string | null | undefined, serverId: string | number | null | undefined) => {
+  if (typeof userId !== 'string' || typeof serverId !== 'string') {
+    throw new Error('Invalid userId or serverId: Must be non-empty strings');
+  }
+
+  try {
+    const response = await axios.post('/server/leave', {
+      userId: userId,
+      serverId: serverId,
+    });
+    return response.data; // Handle successful leave
+  } catch (error) {
+    console.error('Error leaving the server:', error);
+    throw new Error('Failed to leave the server');
+  }
+};
+export const updateServer = async (serverId: string | number | null | undefined, updatedData: any) => {
+  if (typeof serverId !== 'string') {
+    throw new Error('Invalid serverId: Must be a non-empty string');
+  }
+
+  try {
+    const response = await axios.put(`/server/update/${serverId}`, updatedData);
+    return response.data; // Handle successful update
+  } catch (error) {
+    console.error('Error updating the server:', error);
+    throw new Error('Failed to update the server');
+  }
+};
+
 
 export const editUserByUserId = async (user: UserType) => {
   try {

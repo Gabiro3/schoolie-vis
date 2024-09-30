@@ -56,6 +56,13 @@ export const authConfig = {
       // Public page
       if (isOnHomepage) return true;
 
+      // Redirect after log in
+      if(user && isOnHomepage) {
+        return Response.redirect(
+          new URL("/dashboard/friends", request.nextUrl)
+        );
+      }
+
       // Auth user
       if (user && !isAdmin && isOnLoginPage) {
         return Response.redirect(

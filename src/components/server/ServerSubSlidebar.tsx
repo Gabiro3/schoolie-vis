@@ -255,7 +255,11 @@ const ServerSubSlidebar = () => {
             </p>
           </Link>
         )}
-        <ServerDropdownMenu />
+        <ServerDropdownMenu
+          serverName={server?.name}
+          serverId={server?.id}
+          userId={session?.user?.id}
+        />
       </div>
       {server && server?.owner?.id === session?.user?.id && (
         <div className="p-2">

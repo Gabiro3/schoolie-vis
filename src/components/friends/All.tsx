@@ -113,7 +113,7 @@ const All = () => {
       </div>
       <div className="mt-6">
         <p className="text-[13px] font-bold dark:text-gray-400">
-          ALL FRIENDS-{friends?.length ? friends?.length : "0"}
+          YOUR FRIENDS ({friends?.length ? friends?.length : "0"})
         </p>
         <div className="mt-6 flex flex-col">
           {loading && (
@@ -124,14 +124,14 @@ const All = () => {
           {friends?.length === 0 && !loading && (
             <div className="flex flex-col mt-[80px] items-center gap-5">
               <p className="text-[15px] dark:text-gray-400">
-                No one is around to play with Wumpus.
+                Looks like you don&apost have any friends yet, add some.
               </p>
             </div>
           )}
           {!loading && searchInput !== "" && searchFriends?.length === 0 && (
             <div className="flex flex-col mt-[80px] items-center gap-5">
               <p className="text-[15px] dark:text-gray-400">
-                No one with your search to play with Wumpus.
+              Looks like you don&apost have any friends yet, add some.
               </p>
             </div>
           )}

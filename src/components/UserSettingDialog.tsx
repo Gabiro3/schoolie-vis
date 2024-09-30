@@ -1,15 +1,10 @@
-"use client";
-
 import React, { ReactNode, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
-
 import { handleSignOut } from "@/lib/action";
 import { handleFileUpload } from "@/lib/supabase";
 import { editUserByUserId, getUserByEmail } from "@/lib/action.api";
 import { censorPassword, getSummaryName } from "@/lib/helper";
-
 import { IoIosLogOut } from "react-icons/io";
-
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -25,7 +20,6 @@ type ParentComponentProps = {
 
 const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
   const { data: session, update }: any = useSession();
-
   const [formData, setFormData] = useState<any>({
     id: "",
     name: "",
@@ -84,7 +78,6 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
     setLoading(true);
 
     const res = await editUserByUserId(editUser);
-    // console.log(res);
     const { message } = res;
 
     if (message === "Edit user successfully")
@@ -114,26 +107,18 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
       <DialogTrigger asChild>
         <div>{children}</div>
       </DialogTrigger>
-      <DialogContent className="bg-secondary-white dark:bg-primary-gray max-w-[100vw] h-[100vh]">
+      <DialogContent className="bg-secondary-white dark:bg-primary-gray max-w-[100vw] h-[100vh] flex flex-col">
         <div className="absolute right-[50px] top-[10px] flex items-center gap-3">
           <ThemeToggle />
-          {/* <Button
-            variant="purple"
-            onClick={() => {
-              handleSignOut();
-            }}
-          >
-            Log Out
-          </Button> */}
         </div>
-        <Tabs>
+        <Tabs className="flex-grow overflow-y-auto">
           <TabList>
             <Tab>My Account</Tab>
             <Tab>Profiles</Tab>
           </TabList>
 
           <TabPanel>
-            <div className="mt-10 flex justify-center max-h-[100vh] overflow-y-auto">
+            <div className="mt-10 flex justify-center">
               <div className="flex flex-col gap-5 bg-white dark:bg-primary-black w-[100%] lg:w-[900px] p-4 rounded-md">
                 <div className="flex justify-between">
                   <div className="flex gap-5 items-center">
@@ -176,19 +161,23 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-2 text-[15px]">
                       <p className="font-black dark:text-zinc-400">USER ID</p>
+
                       <p className="truncate max-w-[200px] md:max-w-[500px]">
                         {session?.user?.id}
                       </p>
                     </div>
+
                     <Button variant="purple" disabled>
                       Edit
                     </Button>
                   </div>
+
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-2 text-[15px]">
                       <p className="font-black dark:text-zinc-400">
                         DISPLAY NAME
                       </p>
+
                       <Input
                         className="w-[200px] md:w-[600px]"
                         type="text"
@@ -199,6 +188,7 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
                         }
                       />
                     </div>
+
                     <Button
                       variant="purple"
                       type="submit"
@@ -207,30 +197,37 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
                       {loading ? "Loading..." : "Edit"}
                     </Button>
                   </div>
+
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-2 text-[15px]">
                       <p className="font-black dark:text-zinc-400">PROVIDER</p>
+
                       <p className="truncate max-w-[200px] md:max-w-[500px]">
                         {session?.user?.provider}
                       </p>
                     </div>
+
                     <Button variant="purple" disabled>
                       Edit
                     </Button>
                   </div>
+
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-2 text-[15px]">
                       <p className="font-black dark:text-zinc-400">AVATAR</p>
+
                       <Input
                         className="w-[200px] md:w-[600px]"
                         type="file"
                         ref={avatarRef}
                         onChange={(e) =>
                           //   setFormData({ ...formData, avatar: e.target.value })
+
                           handleImageSelection(e)
                         }
                       />
                     </div>
+
                     {session?.user?.provider === "email" ? (
                       <Button
                         variant="purple"
@@ -245,9 +242,11 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
                       </Button>
                     )}
                   </div>
+
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col gap-2 text-[15px]">
                       <p className="font-black dark:text-zinc-400">PASSWORD</p>
+
                       <Input
                         className="w-[200px] md:w-[600px]"
                         type="password"
@@ -265,6 +264,7 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
                         }
                       />
                     </div>
+
                     {session?.user?.password === null ? (
                       <Button variant="purple" type="submit" disabled>
                         Edit
@@ -283,6 +283,7 @@ const UserSettingDialog: React.FC<ParentComponentProps> = ({ children }) => {
               </div>
             </div>
           </TabPanel>
+
           <TabPanel>
             <div className="mt-10 flex justify-center">Profiles content</div>
           </TabPanel>

@@ -49,6 +49,7 @@ export const handleEmailLogin = async (prevState: any, form: FormData) => {
   try {
     const { email, password } = Object.fromEntries(form);
     await signIn("credentials", { email, password });
+    return redirect("/dashboard/friends");
   } catch (err: any) {
     if (err.message.includes("CredentialsSignin")) {
       return { error: "Invalid username or password" };
