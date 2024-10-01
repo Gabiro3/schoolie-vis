@@ -1,13 +1,16 @@
-"use client";
-
-import React, { useState, ReactNode } from "react";
+import React, { useState, useEffect, ReactNode } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { toast } from "react-hot-toast";
-import { updateServer, deleteServer, leaveServer } from "@/lib/action.api"; // Import your API service
+import { updateServer, deleteServer, leaveServer } from "@/lib/action.api";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSocketStore } from "@/lib/store";
+import { v4 as uuidv4 } from "uuid";
+import { getSummaryName } from "@/lib/helper";
+import { ServerType, UserType } from "@/types";
 
 type ServerSettingsDialogProps = {
   serverId: string | number | null | undefined;
@@ -28,6 +31,30 @@ const ServerSettingsDialog: React.FC<ServerSettingsDialogProps> = ({
     members: members,
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false); // State to control dialog open/close
+  const [serverMembers, setServerMembers] = useState<
+    { role: string; members: UserType[] }[]
+  >([]);
+
+  const socket = useSocketStore((state) => state.socket);
+
+  // Fetch members when dialog is opened
+  useEffect(() => {
+    if (isOpen && socket) {
+      socket.emit(
+        "get_server_members",
+        { serverId },
+        (res: {
+          message: string;
+          members: { role: string; members: UserType[] }[];
+        }) => {
+          if (res?.message === "Get server members successfully") {
+            setServerMembers(res?.members);
+          }
+        }
+      );
+    }
+  }, [isOpen, socket, serverId]);
 
   const handleEditServerSettings = async (
     e: React.FormEvent<HTMLFormElement>
@@ -55,7 +82,7 @@ const ServerSettingsDialog: React.FC<ServerSettingsDialogProps> = ({
     try {
       await deleteServer(serverId);
       toast.success("Server deleted successfully!");
-      // Optionally, redirect or close dialog
+      setIsOpen(false); // Close the dialog when the server is deleted
     } catch (error) {
       toast.error("Failed to delete the server.");
     } finally {
@@ -69,7 +96,7 @@ const ServerSettingsDialog: React.FC<ServerSettingsDialogProps> = ({
     try {
       await leaveServer(userId, serverId);
       toast.success("You have left the server.");
-      // Optionally, redirect or close dialog
+      setIsOpen(false); // Close the dialog after leaving the server
     } catch (error) {
       toast.error("Failed to leave the server.");
     } finally {
@@ -78,9 +105,11 @@ const ServerSettingsDialog: React.FC<ServerSettingsDialogProps> = ({
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="default">Open Server Settings</Button>
+        <Button variant="default" onClick={() => setIsOpen(true)}>
+          Open Server Settings
+        </Button>
       </DialogTrigger>
       <DialogContent className="bg-secondary-white dark:bg-primary-gray max-w-[100vw] h-[100vh]">
         <Tabs>
@@ -149,7 +178,32 @@ const ServerSettingsDialog: React.FC<ServerSettingsDialogProps> = ({
             <div className="mt-10 flex justify-center max-h-[100vh] overflow-y-auto">
               <div className="flex flex-col gap-5 bg-white dark:bg-primary-black w-[100%] lg:w-[600px] p-4 rounded-md">
                 <h2 className="text-2xl font-bold">Members</h2>
-                <p className="text-lg">Total members: {members}</p>
+
+                {serverMembers.length > 0 ? (
+                  serverMembers.map((group) => (
+                    <div key={uuidv4()} className="flex flex-col gap-3">
+                      <p className="text-[12px] text-zinc-500 dark:text-zinc-400 font-bold">
+                        {group.role.toUpperCase()} - {group.members.length}
+                      </p>
+                      {group.members.map((user) => (
+                        <div key={uuidv4()} className="flex items-center gap-3">
+                          <Avatar className="w-[35px] h-[35px]">
+                            <AvatarImage src={user.avatar || ""} alt="avatar" />
+                            <AvatarFallback>
+                              {user.name && getSummaryName(user.name)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <p className="text-[13px] font-semibold text-zinc-500 dark:text-zinc-400">
+                            {user.name}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  <p>No members found</p>
+                )}
+
                 <Button
                   variant="purple"
                   onClick={handleLeaveServer}

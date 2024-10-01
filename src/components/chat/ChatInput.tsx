@@ -1,5 +1,4 @@
-import { ChangeEvent } from "react";
-
+import { ChangeEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
   Tooltip,
@@ -20,6 +19,7 @@ import { MdClear } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
 
 import { FormDataState } from "./MainChat";
+import { UploadFile } from "./fileUpload"; // Assuming it's in the same directory
 
 interface PropType {
   friendName: string;
@@ -50,6 +50,9 @@ const ChatInput = (props: PropType) => {
     loading,
   } = props;
 
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string>(""); // Handle uploaded file URL
+
   return (
     <div className="relative">
       <form onSubmit={handleSendMessage}>
@@ -71,6 +74,7 @@ const ChatInput = (props: PropType) => {
           </button>
         </div>
       </form>
+
       <div className="absolute top-[13px] right-[20px] flex items-center gap-4">
         <div className="relative top-[3px]">
           {file !== null && !loading && (
@@ -116,15 +120,10 @@ const ChatInput = (props: PropType) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <div className="realtive text-primary-purple hover:text-secondary-purple">
-                  <Input
-                    ref={fileInputRef}
-                    className="absolute opacity-0 w-[2px] h-[30px] top-[-3px] left-[-3px] hover:cursor-pointer"
-                    type="file"
-                    onChange={(e) => {
-                      handleFileSelection(e);
-                    }}
-                  />
+                <div
+                  className="realtive text-primary-purple hover:text-secondary-purple"
+                  onClick={() => setIsModalOpen(true)} // Open modal on click
+                >
                   <FaFile size={20} />
                 </div>
               </TooltipTrigger>
@@ -155,6 +154,28 @@ const ChatInput = (props: PropType) => {
           </Tooltip>
         </TooltipProvider>
       </div>
+
+      {/* UploadFile Modal */}
+      {isModalOpen && (
+        <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded-lg shadow-lg">
+            <button
+              className="text-red-500 float-right"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Close
+            </button>
+            <UploadFile
+              onChange={(url) => {
+                setUploadedFileUrl(url || "");
+                setIsModalOpen(false); // Close modal after upload
+              }}
+              value={uploadedFileUrl}
+              endpoint="chatAttachment"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

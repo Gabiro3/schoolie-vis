@@ -4,8 +4,8 @@ import ServerSubSlidebar from "@/components/server/ServerSubSlidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Discord Clone | Server",
-  description: "Developed by minhtrifit",
+  title: "Schoolie Communities | Server",
+  description: "Powered by Schoolie Ltd.",
 };
 
 export default function Layout({

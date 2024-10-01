@@ -2,6 +2,7 @@
 
 import { auth, signIn, signOut } from "@/lib/auth";
 import { createNewUser, getUserByEmail } from "./action.api";
+import { v4 as uuidv4 } from 'uuid'; 
 import { UserType } from "@/types";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -10,6 +11,7 @@ export const handleRegister = async (prevState: any, form: FormData) => {
   try {
     const { email, name, password, adminCode, agree }: any =
       Object.fromEntries(form);
+    const avatar = generateRandomAvatar();
 
     if (agree === undefined) return { error: "Please agree terms & policy" };
 
@@ -25,7 +27,7 @@ export const handleRegister = async (prevState: any, form: FormData) => {
       name: name,
       email: email,
       password: password,
-      avatar: null,
+      avatar: avatar,
       provider: "email",
       isAdmin: adminCode === process.env.NEXT_ADMIN_CODE ? true : false,
     };
@@ -76,3 +78,16 @@ export const handleLeaveServerAction = async () => {
   revalidatePath("/dashboard/friends");
   redirect("/dashboard/friends");
 };
+ // Import UUID for unique seed generation
+
+// Random avatar generator function
+export function generateRandomAvatar(): string {
+  const seed = uuidv4();  // Generate a random unique seed
+  const style = "adventurer-neutral"; // You can change the style, e.g., "micah", "pixel-art", etc.
+
+  // Construct the DiceBear avatar URL
+  const avatarUrl = `https://avatars.dicebear.com/api/${style}/${seed}.svg`;
+  
+  return avatarUrl;
+}
+
