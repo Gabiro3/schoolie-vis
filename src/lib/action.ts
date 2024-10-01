@@ -11,7 +11,7 @@ export const handleRegister = async (prevState: any, form: FormData) => {
   try {
     const { email, name, password, adminCode, agree }: any =
       Object.fromEntries(form);
-    const avatar = generateRandomAvatar();
+    const avatar = await generateRandomAvatar();
 
     if (agree === undefined) return { error: "Please agree terms & policy" };
 
@@ -81,7 +81,7 @@ export const handleLeaveServerAction = async () => {
  // Import UUID for unique seed generation
 
 // Random avatar generator function
-export function generateRandomAvatar(): string {
+export const generateRandomAvatar = async () => {
   const seed = uuidv4();  // Generate a random unique seed
   const style = "adventurer-neutral"; // You can change the style, e.g., "micah", "pixel-art", etc.
 
