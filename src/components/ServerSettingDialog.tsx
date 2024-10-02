@@ -88,7 +88,7 @@ const ServerSettingsDialog: React.FC<ServerSettingsDialogProps> = ({
 
     try {
       await deleteServer(serverId);
-      toast.success("Server deleted successfully!");
+      toast.success("Server deleted successfully");
       setIsOpen(false); // Close the dialog when the server is deleted
     } catch (error) {
       toast.error("Failed to delete the server.");
