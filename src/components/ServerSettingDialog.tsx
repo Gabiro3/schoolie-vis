@@ -21,9 +21,9 @@ import { ServerType, UserType } from "@/types";
 type ServerSettingsDialogProps = {
   serverId: string | number | null | undefined;
   serverName: string | undefined;
-  members: number;
+  members?: number;
   userId: string | undefined; // Add userId for leaveServer
-  children: ReactNode;
+  children?: ReactNode;
   ref?: MutableRefObject<any>;
 };
 

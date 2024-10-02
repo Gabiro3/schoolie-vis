@@ -313,6 +313,13 @@ const ServerSubSlidebar = () => {
           <div className="w-[95%] h-[1px] mx-auto bg-zinc-600 dark:bg-zinc-500"></div>
         </>
       )}
+      {isServerSettingsOpen && (
+        <ServerSettingsDialog
+          serverId={server?.id}
+          serverName={server?.name}
+          userId={session?.owner?.id}
+        />
+      )}
       <div className="w-[100%] max-h-[calc(100vh-180px)] px-2 py-4 overflow-y-auto">
         <div className="w-[100%] flex flex-col gap-3">
           {categories?.map((category: CategoryType) => {
