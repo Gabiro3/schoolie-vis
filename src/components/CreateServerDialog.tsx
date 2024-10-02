@@ -110,7 +110,7 @@ const CreateServerDialog = (props: PropType) => {
               onClientUploadComplete={(res) => {
                 if (res && res.length > 0) {
                   setImageUrl(res[0]?.url); // Get the uploaded image URL
-                  toast.success("Image uploaded successfully!");
+                  toast.success("Image uploaded successfully");
                 }
               }}
               onUploadError={(error: Error) => {
