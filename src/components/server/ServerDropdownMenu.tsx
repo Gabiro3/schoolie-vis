@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,20 +8,9 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Checkbox } from "@/components/ui/checkbox";
 import ServerSettingsDialog from "../ServerSettingDialog";
-
-import { TbDiamondFilled } from "react-icons/tb";
 import { IoMdArrowDropdown, IoMdSettings } from "react-icons/io";
-import { IoPersonAdd, IoAddCircle, IoNotifications } from "react-icons/io5";
-import {
-  MdOutlineCreateNewFolder,
-  MdEvent,
-  MdPrivacyTip,
-} from "react-icons/md";
-import { FaDiscord } from "react-icons/fa";
-import { FaPen } from "react-icons/fa6";
-import ServerSettingDialog from "../ServerSettingDialog";
+import { TbDiamondFilled } from "react-icons/tb";
 
 interface ServerDropdownMenuProps {
   serverName: string | undefined;
@@ -36,16 +24,19 @@ const ServerDropdownMenu = ({
   userId,
 }: ServerDropdownMenuProps) => {
   const [open, setOpen] = useState<boolean>(false);
-
+  
   const dropdownRef = useRef<any>();
   const dropdownButtonRef = useRef<any>();
+  const dialogRef = useRef<any>();  // Add a ref for the dialog
 
   useEffect(() => {
     const handleClickOutsideDropdown = (event: any) => {
+      // Check if click is outside the dropdown and dialog
       if (
         dropdownRef?.current &&
         !dropdownRef?.current.contains(event.target) &&
-        !dropdownButtonRef?.current.contains(event.target)
+        !dropdownButtonRef?.current.contains(event.target) &&
+        (!dialogRef?.current || !dialogRef.current.contains(event.target)) // Exclude dialog clicks
       ) {
         setOpen(false);
       }
@@ -63,9 +54,7 @@ const ServerDropdownMenu = ({
       <DropdownMenuTrigger asChild>
         <button
           ref={dropdownButtonRef}
-          onClick={() => {
-            setOpen(!open);
-          }}
+          onClick={() => setOpen(!open)}
         >
           <IoMdArrowDropdown size={25} />
         </button>
@@ -79,14 +68,10 @@ const ServerDropdownMenu = ({
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <span>Invite People</span>
-            <DropdownMenuShortcut>
-              <IoPersonAdd size={20} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {/* Server Settings Dialog inside Dropdown */}
           <DropdownMenuItem>
             <ServerSettingsDialog
+              ref={dialogRef}  // Add ref for the dialog
               serverId={serverId}
               serverName={serverName}
               members={10}
@@ -98,61 +83,7 @@ const ServerDropdownMenu = ({
               </DropdownMenuShortcut>
             </ServerSettingsDialog>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>Create Channel</span>
-            <DropdownMenuShortcut>
-              <IoAddCircle size={20} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>Create Category</span>
-            <DropdownMenuShortcut>
-              <MdOutlineCreateNewFolder size={20} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>Create Event</span>
-            <DropdownMenuShortcut>
-              <MdEvent size={20} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>App Directory</span>
-            <DropdownMenuShortcut>
-              <FaDiscord size={20} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <span>Notification Settings</span>
-            <DropdownMenuShortcut>
-              <IoNotifications size={20} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <span>Privacy Settings</span>
-            <DropdownMenuShortcut>
-              <MdPrivacyTip size={20} />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <span>Edit Server Profile</span>
-          <DropdownMenuShortcut>
-            <FaPen size={15} />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <span>Hide Muted Channel</span>
-          <DropdownMenuShortcut>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="terms" />
-            </div>
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

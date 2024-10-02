@@ -1,4 +1,10 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import React, {
+  useState,
+  useEffect,
+  ReactNode,
+  useRef,
+  MutableRefObject,
+} from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -18,6 +24,7 @@ type ServerSettingsDialogProps = {
   members: number;
   userId: string | undefined; // Add userId for leaveServer
   children: ReactNode;
+  ref?: MutableRefObject<any>;
 };
 
 const ServerSettingsDialog: React.FC<ServerSettingsDialogProps> = ({

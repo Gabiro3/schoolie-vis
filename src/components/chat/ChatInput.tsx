@@ -20,6 +20,7 @@ import { BiSend } from "react-icons/bi";
 
 import { FormDataState } from "./MainChat";
 import { UploadFile } from "./fileUpload"; // Assuming it's in the same directory
+import { FileUploadModal } from "../uploadModal";
 
 interface PropType {
   friendName: string;
@@ -165,7 +166,7 @@ const ChatInput = (props: PropType) => {
             >
               Close
             </button>
-            <UploadFile
+            <FileUploadModal
               onChange={(url) => {
                 setUploadedFileUrl(url || "");
                 setIsModalOpen(false); // Close modal after upload
