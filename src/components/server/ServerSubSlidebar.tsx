@@ -3,17 +3,18 @@
 import { useServerStore, useSocketStore } from "@/lib/store";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { RiCalendarEventLine } from "react-icons/ri";
-import { IoIosLogOut } from "react-icons/io";
+import { IoIosLogOut, IoMdSettings } from "react-icons/io";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import UserProfile from "../UserProfile";
 import ServerDropdownMenu from "./ServerDropdownMenu";
 import ServerCategoryItem from "./ServerCategoryItem";
 import CreateNewCategoryBtn from "./CreateNewCategoryBtn";
+import ServerSettingsDialog from "../ServerSettingDialog";
 
 import { CategoryType, ChannelType } from "@/types";
 
@@ -23,6 +24,7 @@ import { handleLeaveServerAction } from "@/lib/action";
 
 const ServerSubSlidebar = () => {
   const { data: session }: any = useSession();
+  const [isServerSettingsOpen, setIsServerSettingsOpen] = useState(false);
 
   const params = useParams();
   const serverId = params?.id;
@@ -290,6 +292,22 @@ const ServerSubSlidebar = () => {
               <IoIosLogOut size={20} />
 
               <p className="text-[13px] font-semibold">Leave Server</p>
+            </button>
+          </div>
+          <div className="w-[95%] h-[1px] mx-auto bg-zinc-600 dark:bg-zinc-500"></div>
+        </>
+      )}
+      {server && server?.owner?.id === session?.user?.id && (
+        <>
+          <div className="p-2">
+            <button
+              className="w-[100%] flex items-center gap-3 rounded-md p-2 text-zinc-500 hover:bg-zinc-300 hover:text-primary-black
+                            dark:text-gray-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+              onClick={() => setIsServerSettingsOpen(true)}
+            >
+              <IoMdSettings size={20} />
+
+              <p className="text-[13px] font-semibold">Server Settings</p>
             </button>
           </div>
           <div className="w-[95%] h-[1px] mx-auto bg-zinc-600 dark:bg-zinc-500"></div>
